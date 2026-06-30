@@ -570,8 +570,9 @@ export default function App() {
                 <div className="relative rounded-lg overflow-hidden border border-brand-gold/30">
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-transparent to-transparent z-10" />
                   <img 
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&h=800&q=80" 
+                    src="https://lh3.googleusercontent.com/d/1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ" 
                     alt="Bako Hamz (BK)" 
+                    referrerPolicy="no-referrer"
                     className="w-full object-cover object-center h-96 lg:h-[450px]" 
                   />
                   <div className="absolute bottom-4 left-4 z-20">
@@ -652,7 +653,12 @@ export default function App() {
                   <p className="text-xs text-brand-slate leading-relaxed">Expert in algorithmic currency correlations, fair value modeling, and central bank macro flows.</p>
                 </div>
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-5 text-center animate-pulse-gold">
-                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&h=200&q=80" alt="BK (Bako)" className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" />
+                  <img 
+                    src="https://lh3.googleusercontent.com/d/1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ" 
+                    alt="BK (Bako)" 
+                    referrerPolicy="no-referrer"
+                    className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" 
+                  />
                   <h4 className="font-bold text-white font-display">Bako Hamz (BK)</h4>
                   <span className="text-[10px] text-brand-gold uppercase font-mono block mb-2">Chief Market Strategist</span>
                   <p className="text-xs text-brand-slate leading-relaxed">Founder, lead live execution mentor, and managing director of our private PAMM portfolio reserves.</p>
