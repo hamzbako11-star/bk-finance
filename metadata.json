@@ -1,0 +1,8 @@
+{
+  "name": "BK Finance",
+  "description": "Premium Forex Trading Academy & Investment Services platform featuring interactive simulations, calculators, and custom AI mentorship.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
