@@ -141,6 +141,33 @@ async function startServer() {
     res.json(bookings);
   });
 
+  // API Route: Image proxy for Bako Hamz (BK) photo to prevent Google Drive CORS/Hotlinking restrictions in third party deploys like Vercel
+  app.get("/api/bako-image", async (req, res) => {
+    try {
+      const gdriveUrl = "https://drive.google.com/uc?export=download&id=1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ";
+      const response = await fetch(gdriveUrl, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch from Google Drive: ${response.statusText}`);
+      }
+
+      const contentType = response.headers.get("content-type") || "image/jpeg";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "public, max-age=86400"); // Cache for 1 day
+      
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      res.send(buffer);
+    } catch (error: any) {
+      console.error("Error proxying image, redirecting to thumbnail:", error);
+      res.redirect("https://drive.google.com/thumbnail?id=1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ&sz=w1000");
+    }
+  });
+
   // Vite integration
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

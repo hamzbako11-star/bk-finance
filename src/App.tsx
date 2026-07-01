@@ -40,6 +40,16 @@ import { Course, InvestmentPackage, ChatMessage, ConsultationBooking } from "./t
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("home");
   const [advisorOpen, setAdvisorOpen] = useState<boolean>(false);
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget;
+    if (target.src.includes("/api/bako-image")) {
+      target.src = "https://drive.google.com/thumbnail?id=1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ&sz=w1000";
+    } else if (target.src.includes("drive.google.com")) {
+      target.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&h=800&q=80";
+    }
+  };
+
   const [chatInput, setChatInput] = useState<string>("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
@@ -570,7 +580,8 @@ export default function App() {
                 <div className="relative rounded-lg overflow-hidden border border-brand-gold/30">
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-transparent to-transparent z-10" />
                   <img 
-                    src="https://lh3.googleusercontent.com/d/1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ" 
+                    src="/api/bako-image" 
+                    onError={handleImageError}
                     alt="Bako Hamz (BK)" 
                     referrerPolicy="no-referrer"
                     className="w-full object-cover object-center h-96 lg:h-[450px]" 
@@ -654,7 +665,8 @@ export default function App() {
                 </div>
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-5 text-center animate-pulse-gold">
                   <img 
-                    src="https://lh3.googleusercontent.com/d/1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ" 
+                    src="/api/bako-image" 
+                    onError={handleImageError}
                     alt="BK (Bako)" 
                     referrerPolicy="no-referrer"
                     className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" 
