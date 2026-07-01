@@ -307,7 +307,8 @@ export default function App() {
                 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display">
                   Master the Markets.<br />
-                  <span className="text-brand-gold">Build Your Wealth.</span>
+                  With PAP<br />
+                  <span className="text-brand-gold">You're Either in.... or Watching</span>
                 </h1>
                 
                 <p className="text-base sm:text-lg text-brand-slate max-w-xl leading-relaxed">
