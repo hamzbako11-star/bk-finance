@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { TrendingUp, ShieldCheck, Menu, X, Landmark, Award } from "lucide-react";
+import { TrendingUp, ShieldCheck, Menu, X, Landmark, Award, Sun, Moon } from "lucide-react";
 
 interface NavigationProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenAdvisor: () => void;
+  darkMode: boolean;
+  setDarkMode: (dark: boolean) => void;
 }
 
-export default function Navigation({ activeTab, setActiveTab, onOpenAdvisor }: NavigationProps) {
+export default function Navigation({ activeTab, setActiveTab, onOpenAdvisor, darkMode, setDarkMode }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -69,6 +71,14 @@ export default function Navigation({ activeTab, setActiveTab, onOpenAdvisor }: N
 
         {/* Action Button & Advisor Trigger */}
         <div className="hidden lg:flex items-center space-x-4">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 rounded-lg border border-navy-card-border/50 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/50 text-slate-600 dark:text-slate-300 transition duration-200"
+            aria-label="Toggle theme"
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? <Sun className="h-4 w-4 text-amber-500" /> : <Moon className="h-4 w-4 text-indigo-500" />}
+          </button>
           <button 
             onClick={onOpenAdvisor}
             className="px-4 py-2 text-xs font-semibold rounded-lg border border-brand-gold/30 bg-brand-gold/5 text-brand-gold hover:bg-brand-gold/10 transition duration-200 font-display"
@@ -85,6 +95,13 @@ export default function Navigation({ activeTab, setActiveTab, onOpenAdvisor }: N
 
         {/* Mobile menu button */}
         <div className="flex lg:hidden items-center space-x-2">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 rounded border border-navy-card-border/30 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+            aria-label="Toggle theme"
+          >
+            {darkMode ? <Sun className="h-4 w-4 text-amber-500" /> : <Moon className="h-4 w-4 text-indigo-500" />}
+          </button>
           <button 
             onClick={onOpenAdvisor}
             className="px-2.5 py-1.5 text-[10px] font-semibold rounded bg-brand-gold/10 border border-brand-gold/30 text-brand-gold"

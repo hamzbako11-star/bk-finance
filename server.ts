@@ -56,25 +56,25 @@ async function startServer() {
       if (!ai) {
         // Fallback simulation if no API Key is present
         const fallbackAnswers = [
-          "In Forex trading, risk management is your shield. I suggest never risking more than 1% of your account size per trade. Let's look at your risk-reward ratio first.",
+          "In Price Action trading, risk management is your shield. I suggest never risking more than 1% of your account size per trade. Let's look at your risk-reward ratio first.",
           "Market structure is king. Before trying to enter a position, identify if we are making higher highs and higher lows (uptrend) or lower highs and lower lows (downtrend).",
           "Trading psychology represents 80% of your success. If you let greed dictate your lot sizes, or fear make you close early, no system will save you. Keep a disciplined journal.",
-          "Regarding PAMM accounts, we manage funds with institutional discipline. Conservative strategies target 2-4% monthly with tight drawdowns. Let me know if you would like to book a portfolio review.",
-          "Institutional order blocks represent where central banks leave their pending orders. Look for strong displacement candles and return-to-origin entries."
+          "Regarding PAP accounts, we manage funds with professional discipline. Conservative strategies target 2.5% - 4.0% monthly with tight drawdowns. Let me know if you would like to book an account review.",
+          "Price action structures represent key levels where buyers and sellers transact. Look for clean candlestick confirmations and market structure shifts."
         ];
         const randomAnswer = fallbackAnswers[Math.floor(Math.random() * fallbackAnswers.length)];
         return res.json({
-          text: `[SIMULATED ADVISOR] ${randomAnswer}\n\n*Disclaimer: Forex trading involves significant risk. Historical performance is not indicative of future results.*`
+          text: `[SIMULATED ADVISOR] ${randomAnswer}\n\n*Disclaimer: Price Action trading involves significant risk. Historical performance is not indicative of future results.*`
         });
       }
 
       // Prepare system instructions and payload
       const systemInstruction = 
-        "You are 'BK', founder and elite master coach of BK Finance Forex Trading Academy & Investment Services. " +
-        "You have 12 years of institutional trading experience, a certified track record, and manage multi-million PAMM portfolios. " +
+        "You are 'BK', founder and elite master coach of BK Finance Price Action Trading Academy & Investment Services. " +
+        "You have 7 years of professional price action trading experience, a certified track record, and manage multi-million PAP portfolios. " +
         "Your tone is professional, authoritative, confident, realistic, and results-driven. " +
         "Keep your advice practical. Focus heavily on risk management (never risking more than 1-2% per trade, risk-reward ratios of at least 1:2 or 1:3), price action, market structure, and disciplined trading psychology. " +
-        "When asked about investment services, explain PAMM/MAM structures clearly and transparently. " +
+        "When asked about investment services, explain PAP/MAM structures clearly and transparently. " +
         "Always conclude with a concise, professional financial risk disclosure.";
 
       // Query Gemini 3.5 Flash
@@ -165,6 +165,33 @@ async function startServer() {
     } catch (error: any) {
       console.error("Error proxying image, redirecting to thumbnail:", error);
       res.redirect("https://drive.google.com/thumbnail?id=1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ&sz=w1000");
+    }
+  });
+
+  // API Route: Image proxy for Bashir Sani Nadada photo
+  app.get("/api/bashir-image", async (req, res) => {
+    try {
+      const gdriveUrl = "https://drive.google.com/uc?export=download&id=1pTt1so8hWZt4Ak0hlDzFjSdGx9B4dMg5";
+      const response = await fetch(gdriveUrl, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch from Google Drive: ${response.statusText}`);
+      }
+
+      const contentType = response.headers.get("content-type") || "image/jpeg";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "public, max-age=86400"); // Cache for 1 day
+      
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      res.send(buffer);
+    } catch (error: any) {
+      console.error("Error proxying image, redirecting to thumbnail:", error);
+      res.redirect("https://drive.google.com/thumbnail?id=1pTt1so8hWZt4Ak0hlDzFjSdGx9B4dMg5&sz=w1000");
     }
   });
 

@@ -31,6 +31,7 @@ import {
   RotateCcw
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from "recharts";
+import { motion, AnimatePresence } from "motion/react";
 
 import Navigation from "./components/Navigation";
 import MarketTicker from "./components/MarketTicker";
@@ -40,11 +41,32 @@ import { Course, InvestmentPackage, ChatMessage, ConsultationBooking } from "./t
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("home");
   const [advisorOpen, setAdvisorOpen] = useState<boolean>(false);
+  const [discordAlertOpen, setDiscordAlertOpen] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
     if (target.src.includes("/api/bako-image")) {
       target.src = "https://drive.google.com/thumbnail?id=1dSeAUi7SUW3yxaT8AWf5Anh6dkovlDEQ&sz=w1000";
+    } else if (target.src.includes("/api/bashir-image")) {
+      target.src = "https://drive.google.com/thumbnail?id=1pTt1so8hWZt4Ak0hlDzFjSdGx9B4dMg5&sz=w1000";
     } else if (target.src.includes("drive.google.com")) {
       target.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&h=800&q=80";
     }
@@ -284,17 +306,25 @@ export default function App() {
     <div className="min-h-screen bg-[#030d1e] text-slate-100 flex flex-col font-sans relative selection:bg-brand-gold/30 selection:text-white" id="app-root-container">
       
       {/* Navigation Layer */}
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} onOpenAdvisor={() => setAdvisorOpen(true)} />
+      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} onOpenAdvisor={() => setAdvisorOpen(true)} darkMode={darkMode} setDarkMode={setDarkMode} />
 
       {/* Live Market Ticker */}
       <MarketTicker />
 
       {/* Main Container */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* HOMEPAGE VIEW */}
-        {activeTab === "home" && (
-          <div className="space-y-12 animate-fade-in" id="home-view-container">
+        <AnimatePresence mode="wait">
+          {/* HOMEPAGE VIEW */}
+          {activeTab === "home" && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.22 }}
+              className="space-y-12"
+              id="home-view-container"
+            >
             {/* Hero Section */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
@@ -302,7 +332,7 @@ export default function App() {
               <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center space-x-2 bg-brand-gold/10 border border-brand-gold/20 px-3 py-1 rounded-full text-xs text-brand-gold font-mono uppercase tracking-wider">
                   <ShieldCheck className="h-4 w-4" />
-                  <span>Verified 12-Year Trading Legacy</span>
+                  <span>Verified 7-Year Trading Legacy</span>
                 </div>
                 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display">
@@ -465,7 +495,7 @@ export default function App() {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-white font-display">Featured Academy Paths</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 font-display">Featured Academy Paths</h2>
                   <p className="text-sm text-brand-slate">Strictly structured education designed for scalable career advancement</p>
                 </div>
                 <button 
@@ -492,7 +522,7 @@ export default function App() {
                     <div className="pt-4 border-t border-navy-card-border/50 flex items-center justify-between text-xs">
                       <div>
                         <span className="text-brand-slate block">Instructor</span>
-                        <span className="text-white font-medium">{course.instructor}</span>
+                        <span className="text-slate-900 font-medium">{course.instructor}</span>
                       </div>
                       <button 
                         onClick={() => {
@@ -522,7 +552,7 @@ export default function App() {
                     <div className="flex items-center space-x-3 pt-3 border-t border-navy-card-border/30">
                       <img src={t.avatar} alt={t.name} className="h-10 w-10 rounded-full object-cover border border-brand-gold/30" />
                       <div>
-                        <h4 className="font-bold text-xs text-white">{t.name}</h4>
+                        <h4 className="font-bold text-xs text-slate-900">{t.name}</h4>
                         <span className="text-[10px] text-brand-slate block">{t.role}</span>
                         <span className="text-[10px] text-emerald-400 font-mono font-bold block">{t.gainPercent}</span>
                       </div>
@@ -537,7 +567,7 @@ export default function App() {
               <div className="absolute top-0 left-0 w-32 h-32 bg-brand-gold/5 rounded-full blur-2xl" />
               
               <div className="max-w-2xl mx-auto space-y-6">
-                <h3 className="text-2xl font-bold text-white font-display">Get BK's Weekly Market Outlook</h3>
+                <h3 className="text-2xl font-bold text-slate-900 font-display">Get BK's Weekly Market Outlook</h3>
                 <p className="text-sm text-brand-slate">
                   Subscribe to our premium macroeconomic analysis newsletter. Get direct technical levels on EUR/USD, GBP/USD, and XAU/USD delivered to your inbox every Sunday evening before market open.
                 </p>
@@ -548,7 +578,7 @@ export default function App() {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="Enter your financial email address" 
-                    className="flex-1 bg-navy-dark border border-slate-700 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold"
+                    className="flex-1 bg-navy-dark border border-slate-700 rounded px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                     required
                   />
                   <button 
@@ -568,13 +598,21 @@ export default function App() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* ABOUT US VIEW */}
         {activeTab === "about" && (
-          <div className="space-y-12 animate-fade-in" id="about-view-container">
+          <motion.div
+            key="about"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="about-view-container"
+          >
             {/* Split Bio */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-4">
@@ -599,26 +637,26 @@ export default function App() {
 
               <div className="lg:col-span-7 space-y-6">
                 <span className="text-xs uppercase font-mono font-bold text-brand-gold tracking-widest">THE FOUNDER'S STORY</span>
-                <h2 className="text-3xl font-extrabold text-white font-display">A Mission of Radical Transparency in Finance</h2>
+                <h2 className="text-3xl font-extrabold text-slate-950 font-display">A Mission of Radical Transparency in Finance</h2>
                 
                 <p className="text-sm text-brand-slate leading-relaxed">
                   "I spent my first three years in the market losing money to commercial trading systems, indicators, and online chatrooms selling get-rich-quick courses. It wasn't until I decoded raw price action mechanics and market flow that I learned how price actually transacts without lagging indicators."
                 </p>
                 
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  Under BK’s guidance, BK Finance was launched in 2016 with a strict mandate: **eliminate lagging indicators and publish fully transparent audited returns.** We combine high-density pedagogical courses with physical price action managed account operations (PAP), creating a continuous pipeline where graduates can master price action and gain fund allocations.
+                  Under BK’s guidance, BK Finance was launched in 2019 with a strict mandate: **eliminate lagging indicators and publish fully transparent audited returns.** We combine high-density pedagogical courses with physical price action managed account operations (PAP), creating a continuous pipeline where graduates can master price action and gain fund allocations.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                   <div className="bg-[#0a192f] border border-slate-800 p-4 rounded-lg">
-                    <h4 className="font-bold text-white text-sm mb-2 font-display">Professional Credibility</h4>
-                    <p className="text-xs text-brand-slate leading-relaxed">
-                      12+ Years active trading, certified Series 34 compliant definitions, and custom prop firm risk evaluation mandates.
+                  <h4 className="font-bold text-slate-900 text-sm mb-2 font-display">Professional Credibility</h4>
+                  <p className="text-xs text-brand-slate leading-relaxed">
+                      7+ Years active trading, certified Series 34 compliant definitions, and custom prop firm risk evaluation mandates.
                     </p>
                   </div>
                   <div className="bg-[#0a192f] border border-slate-800 p-4 rounded-lg">
-                    <h4 className="font-bold text-white text-sm mb-2 font-display">The BK Ecosystem</h4>
-                    <p className="text-xs text-brand-slate leading-relaxed">
+                  <h4 className="font-bold text-slate-900 text-sm mb-2 font-display">The BK Ecosystem</h4>
+                  <p className="text-xs text-brand-slate leading-relaxed">
                       We do not just sell modules. We provide ongoing live community webinars, customized strategy logs, and vetted price action strategies.
                     </p>
                   </div>
@@ -629,19 +667,19 @@ export default function App() {
             {/* Vision & Regulatory Section */}
             <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="space-y-3">
-                <h3 className="font-bold text-white text-lg font-display">Our Mission</h3>
+                <h3 className="font-bold text-slate-900 text-lg font-display">Our Mission</h3>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   To democratize professional price action trading, equipping retail capital with the math, psychology, and risk structures needed to extract long-term consistency from the financial markets.
                 </p>
               </div>
               <div className="space-y-3">
-                <h3 className="font-bold text-white text-lg font-display">Our Vision</h3>
+                <h3 className="font-bold text-slate-900 text-lg font-display">Our Vision</h3>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   To establish the world's most robust Learn-and-Earn pipeline, where any motivated student can secure a $200,000 funded account by displaying strict risk execution.
                 </p>
               </div>
               <div className="space-y-3">
-                <h3 className="font-bold text-white text-lg font-display">Transparency Standard</h3>
+                <h3 className="font-bold text-slate-900 text-lg font-display">Transparency Standard</h3>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   We do not make hypothetical performance claims. Every percentage return and drawdown limit is extracted from live accounts linked directly to verified audit matrices.
                 </p>
@@ -650,17 +688,23 @@ export default function App() {
 
             {/* Team Section */}
             <div>
-              <h3 className="text-center font-bold text-xl text-white font-display mb-8">Educators and Analysts</h3>
+              <h3 className="text-center font-bold text-xl text-slate-950 font-display mb-8">Educators and Analysts</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-5 text-center">
                   <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&h=200&q=80" alt="David Miller" className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" />
-                  <h4 className="font-bold text-white font-display">David Miller</h4>
+                  <h4 className="font-bold text-slate-900 font-display">David Miller</h4>
                   <span className="text-[10px] text-brand-gold uppercase font-mono block mb-2">Lead Foundation Educator</span>
                   <p className="text-xs text-brand-slate leading-relaxed">Former Chicago Board of Trade options broker specializing in fundamental interest rate differentials.</p>
                 </div>
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-5 text-center">
-                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&h=200&q=80" alt="Elena Rostova" className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" />
-                  <h4 className="font-bold text-white font-display">Elena Rostova</h4>
+                  <img 
+                    src="/api/bashir-image" 
+                    onError={handleImageError}
+                    alt="Bashir Sani Nadada" 
+                    referrerPolicy="no-referrer"
+                    className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" 
+                  />
+                  <h4 className="font-bold text-slate-900 font-display">Bashir Sani Nadada</h4>
                   <span className="text-[10px] text-brand-gold uppercase font-mono block mb-2">Quantitative Strategist</span>
                   <p className="text-xs text-brand-slate leading-relaxed">Expert in algorithmic currency correlations, fair value modeling, and central bank macro flows.</p>
                 </div>
@@ -672,23 +716,31 @@ export default function App() {
                     referrerPolicy="no-referrer"
                     className="h-20 w-20 rounded-full mx-auto object-cover mb-4 border border-brand-gold/30" 
                   />
-                  <h4 className="font-bold text-white font-display">Bako Hamz (BK)</h4>
+                  <h4 className="font-bold text-slate-900 font-display">Bako Hamz (BK)</h4>
                   <span className="text-[10px] text-brand-gold uppercase font-mono block mb-2">Chief Market Strategist</span>
                   <p className="text-xs text-brand-slate leading-relaxed">Founder, lead live execution mentor, and managing director of our private PAP portfolio reserves.</p>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* ACADEMY VIEW */}
         {activeTab === "academy" && (
-          <div className="space-y-12 animate-fade-in" id="academy-view-container">
+          <motion.div
+            key="academy"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="academy-view-container"
+          >
             {/* Header */}
             <div className="text-center max-w-2xl mx-auto space-y-4">
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">BK EDUCATION HUB</span>
-              <h2 className="text-3xl font-extrabold text-white font-display">No Retail Indicators. Pure Candle Mechanics.</h2>
+              <h2 className="text-3xl font-extrabold text-slate-950 font-display">No Retail Indicators. Pure Candle Mechanics.</h2>
               <p className="text-sm text-brand-slate">
                 Our curriculum progresses from the core foundation up to advanced price action models. Select a specific tier below to review details.
               </p>
@@ -712,7 +764,7 @@ export default function App() {
                       <span className="text-[10px] font-mono uppercase text-brand-slate">{course.tier}</span>
                       <span className="text-[10px] text-brand-gold font-bold font-mono">${course.price} USD</span>
                     </div>
-                    <span className="font-bold text-sm text-white font-display">{course.title}</span>
+                    <span className={`font-bold text-sm font-display ${selectedCourse?.id === course.id ? "text-brand-gold" : "text-slate-900"}`}>{course.title}</span>
                   </button>
                 ))}
 
@@ -741,7 +793,7 @@ export default function App() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-navy-card-border/50 gap-4">
                       <div>
                         <span className="text-[10px] font-mono text-brand-gold uppercase tracking-widest font-bold">{selectedCourse.tier} PATHWAY</span>
-                        <h3 className="text-xl font-bold text-white font-display mt-1">{selectedCourse.title}</h3>
+                        <h3 className="text-xl font-bold text-slate-950 font-display mt-1">{selectedCourse.title}</h3>
                       </div>
                       <div className="text-right">
                         <span className="text-2xl font-black text-brand-gold font-display">${selectedCourse.price}</span>
@@ -756,15 +808,15 @@ export default function App() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-navy-dark/60 p-4 rounded-lg text-xs">
                       <div>
                         <span className="text-brand-slate block">Duration</span>
-                        <span className="text-white font-bold">{selectedCourse.duration}</span>
+                        <span className="text-slate-900 font-bold">{selectedCourse.duration}</span>
                       </div>
                       <div>
                         <span className="text-brand-slate block">Path Format</span>
-                        <span className="text-white font-bold">{selectedCourse.format}</span>
+                        <span className="text-slate-900 font-bold">{selectedCourse.format}</span>
                       </div>
                       <div>
                         <span className="text-brand-slate block">Lead Instructor</span>
-                        <span className="text-white font-bold">{selectedCourse.instructor} ({selectedCourse.instructorTitle})</span>
+                        <span className="text-slate-900 font-bold">{selectedCourse.instructor} ({selectedCourse.instructorTitle})</span>
                       </div>
                     </div>
 
@@ -827,7 +879,7 @@ export default function App() {
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold border border-brand-gold/30 mb-2">
                       <PrizeIcon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white font-display">Price Action Sizing and Market Structure Assessment</h3>
+                    <h3 className="text-2xl font-bold text-slate-950 font-display">Price Action Sizing and Market Structure Assessment</h3>
                     <p className="text-sm text-brand-slate max-w-xl mx-auto">
                       Durable wealth creation relies on mathematics, not luck. Test your current technical understanding of risk metrics and market flow cycles. Take this rapid, 4-question assessment.
                     </p>
@@ -844,7 +896,7 @@ export default function App() {
                       <Check className="h-8 w-8" />
                     </div>
                     <div className="space-y-2">
-                      <h4 className="text-2xl font-bold text-white font-display">Your Assessment Score: {quizScore} / {QUIZ_QUESTIONS.length}</h4>
+                      <h4 className="text-2xl font-bold text-slate-950 font-display">Your Assessment Score: {quizScore} / {QUIZ_QUESTIONS.length}</h4>
                       <p className="text-xs text-brand-slate max-w-md mx-auto">
                         {quizScore === QUIZ_QUESTIONS.length 
                           ? "Exceptional score! You display high strategic alignment. We recommend skipping straight to the Advanced or Mentorship program."
@@ -883,7 +935,7 @@ export default function App() {
                       <span>CURRENT SCORE: {quizScore}</span>
                     </div>
 
-                    <h4 className="text-lg font-bold text-white leading-relaxed">
+                    <h4 className="text-lg font-bold text-slate-900 leading-relaxed">
                       {QUIZ_QUESTIONS[currentQuestionIndex].question}
                     </h4>
 
@@ -929,17 +981,25 @@ export default function App() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* INVESTMENT SERVICES VIEW */}
         {activeTab === "invest" && (
-          <div className="space-y-12 animate-fade-in" id="invest-view-container">
+          <motion.div
+            key="invest"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="invest-view-container"
+          >
             {/* Header */}
             <div className="text-center max-w-2xl mx-auto space-y-4">
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">MANAGED SERVICES</span>
-              <h2 className="text-3xl font-extrabold text-white font-display">Price Action Protocol (PAP) Managed Accounts</h2>
+              <h2 className="text-3xl font-extrabold text-slate-950 font-display">Price Action Protocol (PAP) Managed Accounts</h2>
               <p className="text-sm text-brand-slate">
                 Delegate technical execution to certified professionals. We trade pooled assets on a direct commission structure with no retail markup.
               </p>
@@ -963,7 +1023,7 @@ export default function App() {
                       <span className="text-[10px] font-mono uppercase text-brand-slate">{pkg.riskProfile} Risk</span>
                       <span className="text-[10px] text-emerald-400 font-bold font-mono">{pkg.targetMonthlyReturn} Monthly</span>
                     </div>
-                    <span className="font-bold text-sm text-white font-display">{pkg.name}</span>
+                    <span className={`font-bold text-sm font-display ${selectedPackage?.id === pkg.id ? "text-brand-gold" : "text-slate-900"}`}>{pkg.name}</span>
                   </button>
                 ))}
 
@@ -986,7 +1046,7 @@ export default function App() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-navy-card-border/50 gap-4">
                       <div>
                         <span className="text-[10px] font-mono text-brand-gold uppercase tracking-widest font-bold">{selectedPackage.riskProfile} PROFILE</span>
-                        <h3 className="text-xl font-bold text-white font-display mt-1">{selectedPackage.name}</h3>
+                        <h3 className="text-xl font-bold text-slate-950 font-display mt-1">{selectedPackage.name}</h3>
                       </div>
                       <div className="text-right">
                         <span className="text-[10px] text-brand-slate block">MINIMUM THRESHOLD</span>
@@ -1001,15 +1061,15 @@ export default function App() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-navy-dark/60 p-4 rounded-lg text-xs">
                       <div>
                         <span className="text-brand-slate block">Performance Incentive Fee</span>
-                        <span className="text-white font-bold">{selectedPackage.performanceFee} (High-Water Mark Principle)</span>
+                        <span className="text-slate-900 font-bold">{selectedPackage.performanceFee} (High-Water Mark Principle)</span>
                       </div>
                       <div>
                         <span className="text-brand-slate block">Annual Platform Management Fee</span>
-                        <span className="text-white font-bold">{selectedPackage.managementFee}</span>
+                        <span className="text-slate-900 font-bold">{selectedPackage.managementFee}</span>
                       </div>
                       <div className="sm:col-span-2 border-t border-navy-card-border/50 pt-2 mt-2">
                         <span className="text-brand-slate block">Target Demographics & Suitability</span>
-                        <span className="text-white font-bold">{selectedPackage.suitableFor}</span>
+                        <span className="text-slate-900 font-bold">{selectedPackage.suitableFor}</span>
                       </div>
                     </div>
 
@@ -1031,12 +1091,12 @@ export default function App() {
 
                     {/* Current Asset Allocation distribution */}
                     <div className="space-y-3">
-                      <h4 className="text-xs font-mono uppercase text-emerald-400 font-bold tracking-wider">Active Asset Allocation</h4>
+                      <h4 className="text-xs font-mono uppercase text-emerald-700 font-bold tracking-wider">Active Asset Allocation</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {selectedPackage.assetAllocation.map((asset, i) => (
                           <div key={i} className="bg-navy-dark/40 border border-navy-card-border/20 p-3 rounded text-center">
                             <span className="text-[10px] text-brand-slate block">{asset.name}</span>
-                            <span className="text-sm font-bold text-white font-mono">{asset.percentage}%</span>
+                            <span className="text-sm font-bold text-slate-900 font-mono">{asset.percentage}%</span>
                           </div>
                         ))}
                       </div>
@@ -1067,13 +1127,21 @@ export default function App() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* TRADING TOOLS VIEW */}
         {activeTab === "tools" && (
-          <div className="space-y-12 animate-fade-in" id="tools-view-container">
+          <motion.div
+            key="tools"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="tools-view-container"
+          >
             {/* Split Tools: Calculator & Calendar */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               
@@ -1081,7 +1149,7 @@ export default function App() {
               <div className="lg:col-span-7 bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8 space-y-6">
                 <div className="pb-4 border-b border-navy-card-border/50">
                   <span className="text-xs font-mono text-brand-gold uppercase tracking-widest font-bold">Trading Calculator</span>
-                  <h3 className="text-xl font-bold text-white font-display mt-1">Price Action Position Size Sizer</h3>
+                  <h3 className="text-xl font-bold text-slate-950 font-display mt-1">Price Action Position Size Sizer</h3>
                   <p className="text-xs text-brand-slate mt-1">Calculate exact lot allocations to preserve capital relative to stop-loss levels.</p>
                 </div>
 
@@ -1092,7 +1160,7 @@ export default function App() {
                       type="number" 
                       value={accountSize} 
                       onChange={(e) => setAccountSize(Number(e.target.value))}
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold font-mono"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1102,7 +1170,7 @@ export default function App() {
                       step="0.1"
                       value={riskPercent} 
                       onChange={(e) => setRiskPercent(Number(e.target.value))}
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold font-mono"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1111,7 +1179,7 @@ export default function App() {
                       type="number" 
                       value={stopLossPips} 
                       onChange={(e) => setStopLossPips(Number(e.target.value))}
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold font-mono"
                     />
                   </div>
                   <div className="space-y-1">
@@ -1119,7 +1187,7 @@ export default function App() {
                     <select 
                       value={currencyPair}
                       onChange={(e) => setCurrencyPair(e.target.value)}
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold font-mono"
                     >
                       <option value="EUR/USD">EUR/USD (Spread 0.2)</option>
                       <option value="GBP/USD">GBP/USD (Spread 0.4)</option>
@@ -1132,7 +1200,7 @@ export default function App() {
                 <div className="bg-navy-dark border border-navy-card-border p-4 rounded-lg flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase font-mono text-brand-slate block">REVENUE RISK TOLERANCE</span>
-                    <span className="text-base font-bold text-white font-mono">${(accountSize * (riskPercent / 100)).toFixed(2)} USD</span>
+                    <span className="text-base font-bold text-slate-900 font-mono">${(accountSize * (riskPercent / 100)).toFixed(2)} USD</span>
                   </div>
                   <div className="text-right">
                     <span className="text-[10px] uppercase font-mono text-brand-gold block">RECOMMENDED LOT ALLOCATION</span>
@@ -1141,7 +1209,7 @@ export default function App() {
                 </div>
 
                 <div className="p-3 bg-brand-gold/5 border border-brand-gold/20 rounded text-xs text-brand-slate leading-relaxed">
-                  <span className="font-bold text-white block mb-1">Risk Warning Rule:</span>
+                  <span className="font-bold text-slate-900 block mb-1">Risk Warning Rule:</span>
                   If your Recommended Lot Allocation is larger than what your account margin can leverage, scale down. Never compromise core risk configurations.
                 </div>
               </div>
@@ -1151,7 +1219,7 @@ export default function App() {
                 <div className="pb-4 border-b border-navy-card-border/50 flex items-center justify-between">
                   <div>
                     <span className="text-xs font-mono text-brand-gold uppercase tracking-widest font-bold">Economic Feed</span>
-                    <h3 className="text-lg font-bold text-white font-display mt-1">High Impact Events</h3>
+                    <h3 className="text-lg font-bold text-slate-950 font-display mt-1">High Impact Events</h3>
                   </div>
                   <Calendar className="h-5 w-5 text-brand-gold" />
                 </div>
@@ -1172,7 +1240,7 @@ export default function App() {
 
                         <div className="flex items-start justify-between">
                           <div>
-                            <span className="text-xs font-bold text-white font-mono bg-navy-card-light px-1.5 py-0.5 rounded mr-1.5 inline-block">
+                            <span className="text-xs font-bold text-slate-900 font-mono bg-navy-card-light px-1.5 py-0.5 rounded mr-1.5 inline-block">
                               {event.currency}
                             </span>
                             <span className="text-xs text-slate-200">{event.event}</span>
@@ -1180,8 +1248,8 @@ export default function App() {
                         </div>
 
                         <div className="grid grid-cols-3 gap-2 text-[10px] font-mono pt-1.5 border-t border-navy-card-border/10 text-brand-slate">
-                          <div>Prev: <span className="text-white">{event.previous}</span></div>
-                          <div>Forecast: <span className="text-white">{event.forecast}</span></div>
+                          <div>Prev: <span className="text-slate-900">{event.previous}</span></div>
+                          <div>Forecast: <span className="text-slate-900">{event.forecast}</span></div>
                           {event.actual && (
                             <div>Actual: <span className="text-emerald-400 font-bold">{event.actual}</span></div>
                           )}
@@ -1197,7 +1265,7 @@ export default function App() {
             <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8">
               <div className="flex items-center space-x-2 pb-4 border-b border-navy-card-border/50 mb-6">
                 <BookMarked className="h-5 w-5 text-brand-gold" />
-                <h3 className="text-lg font-bold text-white font-display">Lexicon of Price Action Terms</h3>
+                <h3 className="text-lg font-bold text-slate-950 font-display">Lexicon of Price Action Terms</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1209,17 +1277,25 @@ export default function App() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* COMMUNITY VIEW */}
         {activeTab === "community" && (
-          <div className="space-y-12 animate-fade-in" id="community-view-container">
+          <motion.div
+            key="community"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="community-view-container"
+          >
             {/* Header */}
             <div className="text-center max-w-2xl mx-auto space-y-4">
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold font-mono">ALUMNI CORE</span>
-              <h2 className="text-3xl font-extrabold text-white font-display">BK Discord & Private Guild</h2>
+              <h2 className="text-3xl font-extrabold text-slate-950 font-display">BK Telegram & Private Guild</h2>
               <p className="text-sm text-brand-slate">
                 Trading is a lonely pursuit. Join our student forums, share daily chart layouts, and trace market flow entries with vetted partners.
               </p>
@@ -1227,46 +1303,49 @@ export default function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8 space-y-4">
-                <div className="h-12 w-12 bg-indigo-500/10 border border-indigo-500/30 rounded-lg flex items-center justify-center text-indigo-400">
-                  <MessageSquare className="h-6 w-6" />
+                <div className="h-12 w-12 bg-sky-500/10 border border-sky-500/30 rounded-lg flex items-center justify-center text-sky-400">
+                  <Send className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white font-display">BK Discord Lounge</h3>
+                <h3 className="text-xl font-bold text-slate-950 font-display">BK Telegram Channel</h3>
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  Our private Discord serves as the operational command center. Access real-time channels for session markups (London & NY Open), macroeconomic updates, and direct student portfolio peer reviews.
+                  Our official Telegram channel serves as the operational command center. Access real-time updates for session markups (London & NY Open), macroeconomic updates, and direct student portfolio peer reviews.
                 </p>
                 <div className="space-y-2 text-xs text-brand-slate pt-2">
                   <div className="flex items-center space-x-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                    <span>Active Live Room Traders: 1,840 Online</span>
+                    <span>Active Telegram Subscribers: 1,840+ Active</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="h-2 w-2 rounded-full bg-indigo-400" />
+                    <span className="h-2 w-2 rounded-full bg-sky-400" />
                     <span>Daily Technical Submissions: 140+ Charts</span>
                   </div>
                 </div>
-                <button 
-                  onClick={() => alert("Discord entry credentials are exclusive to verified course or PAP students.")}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded text-xs transition duration-150"
+                <a 
+                  href="https://t.me/bkfinancesmarketing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center space-x-2 w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-bold px-6 py-3 rounded text-xs transition duration-150 text-center"
                 >
-                  Request Discord Gateway
-                </button>
+                  <Send className="h-4 w-4" />
+                  <span>Join BK Telegram Channel</span>
+                </a>
               </div>
 
               <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8 space-y-4">
                 <div className="h-12 w-12 bg-brand-gold/10 border border-brand-gold/30 rounded-lg flex items-center justify-center text-brand-gold">
                   <Activity className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white font-display">Weekly Live Trading Webinars</h3>
+                <h3 className="text-xl font-bold text-slate-950 font-display">Weekly Live Trading Webinars</h3>
                 <p className="text-sm text-brand-slate leading-relaxed">
                   Every Sunday at 18:00 EST and Wednesday at 08:00 EST, BK hosts live interactive group webinars. Watch live trade executions, ask direct structure questions, and get your strategy logs audited in real-time.
                 </p>
                 <div className="space-y-2 text-xs text-brand-slate pt-2">
                   <div className="flex items-center space-x-2">
-                    <span className="font-bold text-white font-mono">Sunday Outlook:</span>
+                    <span className="font-bold text-slate-900 font-mono">Sunday Outlook:</span>
                     <span>Macro imbalance sweeps & high-probability key levels</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="font-bold text-white font-mono">Wednesday Recal:</span>
+                    <span className="font-bold text-slate-900 font-mono">Wednesday Recal:</span>
                     <span>Midweek volatility management and active adjustments</span>
                   </div>
                 </div>
@@ -1278,17 +1357,25 @@ export default function App() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* PRICING VIEW */}
         {activeTab === "pricing" && (
-          <div className="space-y-12 animate-fade-in" id="pricing-view-container">
+          <motion.div
+            key="pricing"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="pricing-view-container"
+          >
             {/* Header */}
             <div className="text-center max-w-2xl mx-auto space-y-4">
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">TRANSPARENT FEE TIERS</span>
-              <h2 className="text-3xl font-extrabold text-white font-display">Investment Packages and Mentorship Pricing</h2>
+              <h2 className="text-3xl font-extrabold text-slate-950 font-display">Investment Packages and Mentorship Pricing</h2>
               <p className="text-sm text-brand-slate">
                 Choose the educational tier that aligns with your timeline, or select an asset allocation managed structure.
               </p>
@@ -1297,7 +1384,7 @@ export default function App() {
             {/* Course Package Comparison Table */}
             <div className="bg-[#0a192f] border border-slate-800 rounded-lg overflow-hidden">
               <div className="p-6 border-b border-navy-card-border">
-                <h3 className="font-bold text-lg text-white font-display">Academy Tiers Comparison</h3>
+                <h3 className="font-bold text-lg text-slate-950 font-display">Academy Tiers Comparison</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs text-brand-slate">
@@ -1312,35 +1399,35 @@ export default function App() {
                   </thead>
                   <tbody className="divide-y divide-navy-card-border/30">
                     <tr>
-                      <td className="p-4 font-bold text-white">Tuition Price (One-Off)</td>
-                      <td className="p-4 text-white">$199 USD</td>
-                      <td className="p-4 text-brand-gold font-bold">$499 USD</td>
-                      <td className="p-4 text-white">$899 USD</td>
-                      <td className="p-4 text-white">$1,999 USD</td>
+                      <td className="p-4 font-bold text-slate-900">Tuition Price (One-Off)</td>
+                      <td className="p-4 text-slate-900">$145 USD</td>
+                      <td className="p-4 text-brand-gold font-bold">$299 USD</td>
+                      <td className="p-4 text-slate-900">$499 USD</td>
+                      <td className="p-4 text-slate-900">$1,000 USD</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-bold text-white">Curriculum Level</td>
+                      <td className="p-4 font-bold text-slate-900">Curriculum Level</td>
                       <td className="p-4">Basics & Vocab</td>
-                      <td className="p-4 text-white">Full Price Action</td>
+                      <td className="p-4 text-slate-900">Full Price Action</td>
                       <td className="p-4">Smart Money Flows</td>
-                      <td className="p-4 text-white">Custom Private Coaching</td>
+                      <td className="p-4 text-slate-900">Custom Private Coaching</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-bold text-white">Live Webinar Access</td>
+                      <td className="p-4 font-bold text-slate-900">Live Webinar Access</td>
                       <td className="p-4">❌ No</td>
-                      <td className="p-4 text-emerald-400">✔ Bi-Weekly</td>
-                      <td className="p-4 text-emerald-400">✔ Fully Included</td>
-                      <td className="p-4 text-emerald-400">✔ Daily Live Trading Room</td>
+                      <td className="p-4 text-emerald-600">✔ Bi-Weekly</td>
+                      <td className="p-4 text-emerald-600">✔ Fully Included</td>
+                      <td className="p-4 text-emerald-600">✔ Daily Live Trading Room</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-bold text-white">Private Strategy Audit</td>
+                      <td className="p-4 font-bold text-slate-900">Private Strategy Audit</td>
                       <td className="p-4">❌ No</td>
                       <td className="p-4">❌ No</td>
-                      <td className="p-4 text-emerald-400">✔ Month-End Audit</td>
-                      <td className="p-4 text-emerald-400">✔ Direct weekly BK feedback</td>
+                      <td className="p-4 text-emerald-600">✔ Month-End Audit</td>
+                      <td className="p-4 text-emerald-600">✔ Direct weekly BK feedback</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-bold text-white">Fund Allocation Target</td>
+                      <td className="p-4 font-bold text-slate-900">Fund Allocation Target</td>
                       <td className="p-4">❌ No</td>
                       <td className="p-4">❌ No</td>
                       <td className="p-4">✔ Prop Firm Prep</td>
@@ -1354,25 +1441,33 @@ export default function App() {
             {/* Money back and client protection */}
             <div className="bg-navy-dark/60 border border-navy-card-border p-6 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <h4 className="font-bold text-white text-sm font-display">14-Day Capital Protection Guarantee</h4>
+                <h4 className="font-bold text-slate-900 text-sm font-display">14-Day Capital Protection Guarantee</h4>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   If you enroll in any of our technical video courses (Foundation or Intermediate) and decide within 14 days that our structured approach is not aligned with your path, email our compliance team for an immediate tuition refund.
                 </p>
               </div>
               <div className="space-y-2">
-                <h4 className="font-bold text-white text-sm font-display">High-Water Mark Principle for Investments</h4>
+                <h4 className="font-bold text-slate-900 text-sm font-display">High-Water Mark Principle for Investments</h4>
                 <p className="text-xs text-brand-slate leading-relaxed">
                   We only profit when you profit. Our PAP performance fees (15% - 35% depending on package risk profile) operate strictly under the high-water mark. If your account equity declines, no fee is charged until all prior losses are fully recouped.
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
 
         {/* CONTACT & SUPPORT VIEW */}
         {activeTab === "contact" && (
-          <div className="space-y-12 animate-fade-in" id="contact-view-container">
+          <motion.div
+            key="contact"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-12"
+            id="contact-view-container"
+          >
             {/* Split Screen Form & FAQs */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               
@@ -1380,7 +1475,7 @@ export default function App() {
               <div className="lg:col-span-7 bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8 space-y-6">
                 <div>
                   <span className="text-xs font-mono text-brand-gold uppercase tracking-widest font-bold">Secure Gate</span>
-                  <h3 className="text-xl font-bold text-white font-display mt-1">Book Your Free Strategic Audit</h3>
+                  <h3 className="text-xl font-bold text-slate-950 font-display mt-1">Book Your Free Strategic Audit</h3>
                   <p className="text-xs text-brand-slate mt-1">Discuss educational enrolment paths or investment portfolio limits with BK's senior staff.</p>
                 </div>
 
@@ -1394,7 +1489,7 @@ export default function App() {
                         value={bookingForm.name}
                         onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
                         placeholder="e.g., Marcus Sterling"
-                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                       />
                     </div>
                     <div className="space-y-1">
@@ -1405,7 +1500,7 @@ export default function App() {
                         value={bookingForm.email}
                         onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
                         placeholder="e.g., marcus@domain.com"
-                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                       />
                     </div>
                   </div>
@@ -1419,7 +1514,7 @@ export default function App() {
                         value={bookingForm.phone}
                         onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
                         placeholder="e.g., +1 555-019-2834"
-                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                       />
                     </div>
                     <div className="space-y-1">
@@ -1427,7 +1522,7 @@ export default function App() {
                       <select 
                         value={bookingForm.intent}
                         onChange={(e) => setBookingForm({ ...bookingForm, intent: e.target.value as any })}
-                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                        className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                       >
                         <option value="education">Academy / Education Paths</option>
                         <option value="investment">PAP Managed Account Services</option>
@@ -1441,7 +1536,7 @@ export default function App() {
                     <select 
                       value={bookingForm.timeframe}
                       onChange={(e) => setBookingForm({ ...bookingForm, timeframe: e.target.value })}
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold"
                     >
                       <option value="immediate">Immediate Focus (Within 48 hours)</option>
                       <option value="week">Next Scheduled Wave (Within 7 days)</option>
@@ -1456,7 +1551,7 @@ export default function App() {
                       value={bookingForm.notes}
                       onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
                       placeholder="e.g., Current risk profile, years traded, or targeted PAP allocation..."
-                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold resize-none"
+                      className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-brand-gold resize-none"
                     />
                   </div>
 
@@ -1475,7 +1570,7 @@ export default function App() {
                 {/* Submissions feedback listing */}
                 {activeBookings.length > 0 && (
                   <div className="pt-6 border-t border-navy-card-border/50">
-                    <h4 className="text-xs font-bold text-white uppercase font-mono mb-3">Live Booking Ledger Tracker</h4>
+                    <h4 className="text-xs font-bold text-slate-900 uppercase font-mono mb-3">Live Booking Ledger Tracker</h4>
                     <div className="space-y-2">
                       {activeBookings.map((bk, i) => (
                         <div key={i} className="bg-navy-dark/40 border border-navy-card-border/20 p-3 rounded flex items-center justify-between text-xs font-mono">
@@ -1497,27 +1592,27 @@ export default function App() {
               <div className="lg:col-span-5 space-y-6">
                 {/* Physical Contacts */}
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 space-y-4">
-                  <h3 className="font-bold text-white text-base font-display">BK Corporate Offices</h3>
+                  <h3 className="font-bold text-slate-950 text-base font-display">BK Corporate Offices</h3>
                   <div className="space-y-3 text-xs text-brand-slate">
                     <div className="flex items-start space-x-2.5">
                       <MapPin className="h-4 w-4 text-brand-gold shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-white block font-bold">BK Headquarters</span>
-                        <span>Level 42, The Gherkin, 30 St Mary Axe, London, EC3A 8EP</span>
+                        <span className="text-slate-900 block font-bold">BK Headquarters</span>
+                        <span>No 32 Center Road, hill crecent, Katsina 83367</span>
                       </div>
                     </div>
                     <div className="flex items-start space-x-2.5">
                       <Mail className="h-4 w-4 text-brand-gold shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-white block font-bold">Secure Support Vault</span>
-                        <span>support@bkfinance-academy.com</span>
+                        <span className="text-slate-900 block font-bold">Secure Support Vault</span>
+                        <span>hamzbako11@gmail.com</span>
                       </div>
                     </div>
                     <div className="flex items-start space-x-2.5">
                       <Phone className="h-4 w-4 text-brand-gold shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-white block font-bold">Administrative Desk</span>
-                        <span>+44 20 7946 0958</span>
+                        <span className="text-slate-900 block font-bold">Administrative Desk</span>
+                        <span>+234 70 7658 5906</span>
                       </div>
                     </div>
                   </div>
@@ -1525,11 +1620,11 @@ export default function App() {
 
                 {/* FAQs */}
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 space-y-4">
-                  <h3 className="font-bold text-white text-base font-display">Educational & PAP FAQ</h3>
+                  <h3 className="font-bold text-slate-950 text-base font-display">Educational & PAP FAQ</h3>
                   <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
                     {FAQS.map((faq, i) => (
                       <div key={i} className="space-y-1 pb-3 border-b border-navy-card-border/20 last:border-none">
-                        <span className="text-xs font-bold text-white block">{faq.question}</span>
+                        <span className="text-xs font-bold text-slate-900 block">{faq.question}</span>
                         <p className="text-[11px] text-brand-slate leading-relaxed">{faq.answer}</p>
                       </div>
                     ))}
@@ -1537,8 +1632,9 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
       </main>
 
@@ -1569,81 +1665,168 @@ export default function App() {
       </footer>
 
 
-      {/* BK AI ADVISOR DRAWER / CHAT PANEL */}
-      {advisorOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm" id="chat-drawer-backdrop">
-          <div className="w-full max-w-md bg-[#0a192f] h-full flex flex-col shadow-2xl border-l border-brand-gold/30 animate-slide-in relative">
-            
-            {/* Drawer Header */}
-            <div className="p-4 border-b border-navy-card-border/50 bg-navy-dark flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-lg bg-brand-gold text-brand-navy flex items-center justify-center font-bold">
-                  BK
+      {/* BK AI ADVISOR DRAWER / CHAT PANEL & DISCORD MODAL */}
+      <AnimatePresence>
+        {advisorOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm" 
+            id="chat-drawer-backdrop"
+            onClick={() => setAdvisorOpen(false)}
+          >
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 26, stiffness: 220 }}
+              className="w-full max-w-md bg-[#0a192f] h-full flex flex-col shadow-2xl border-l border-brand-gold/30 relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Drawer Header */}
+              <div className="p-4 border-b border-navy-card-border/50 bg-navy-dark flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="h-8 w-8 rounded-lg bg-brand-gold text-brand-navy flex items-center justify-center font-bold">
+                    BK
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white font-display flex items-center">
+                      BK AI Advisor <Sparkles className="h-3 w-3 text-brand-gold ml-1 animate-pulse" />
+                    </h4>
+                    <span className="text-[9px] text-brand-slate uppercase tracking-wider font-mono">7-Yr Price Action Master</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-sm text-white font-display flex items-center">
-                    BK AI Advisor <Sparkles className="h-3 w-3 text-brand-gold ml-1 animate-pulse" />
-                  </h4>
-                  <span className="text-[9px] text-brand-slate uppercase tracking-wider font-mono">12-Yr Price Action Master</span>
-                </div>
+                <button 
+                  onClick={() => setAdvisorOpen(false)}
+                  className="text-brand-slate hover:text-white p-1 rounded-full hover:bg-white/5"
+                >
+                  <X className="h-5 w-5" />
+                </button>
               </div>
-              <button 
-                onClick={() => setAdvisorOpen(false)}
-                className="text-brand-slate hover:text-white p-1 rounded-full hover:bg-white/5"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
 
-            {/* Chat Body */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
-              {chatMessages.map((msg) => {
-                const isUser = msg.sender === "user";
-                return (
-                  <div key={msg.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-                    <div className={`max-w-[85%] rounded p-3 ${
-                      isUser 
-                        ? "bg-brand-gold/10 border border-brand-gold/30 text-white" 
-                        : "bg-navy-dark border border-navy-card-border text-slate-200"
-                    }`}>
-                      <div className="text-[9px] text-brand-slate mb-1">
-                        {isUser ? "STUDENT" : "COACH BK"} — {msg.timestamp.toLocaleTimeString()}
+              {/* Chat Body */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+                {chatMessages.map((msg) => {
+                  const isUser = msg.sender === "user";
+                  return (
+                    <motion.div 
+                      key={msg.id} 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`flex ${isUser ? "justify-end" : "justify-start"}`}
+                    >
+                      <div className={`max-w-[85%] rounded p-3 ${
+                        isUser 
+                          ? "bg-brand-gold/10 border border-brand-gold/30 text-white" 
+                          : "bg-navy-dark border border-navy-card-border text-slate-200"
+                      }`}>
+                        <div className="text-[9px] text-brand-slate mb-1">
+                          {isUser ? "STUDENT" : "COACH BK"} — {msg.timestamp.toLocaleTimeString()}
+                        </div>
+                        <p className="whitespace-pre-line leading-relaxed font-sans">{msg.text}</p>
                       </div>
-                      <p className="whitespace-pre-line leading-relaxed font-sans">{msg.text}</p>
+                    </motion.div>
+                  );
+                })}
+                {isSending && (
+                  <div className="flex justify-start animate-pulse">
+                    <div className="bg-navy-dark border border-navy-card-border text-brand-slate max-w-[85%] rounded p-3">
+                      <span>BK is reviewing market structure...</span>
                     </div>
                   </div>
-                );
-              })}
-              {isSending && (
-                <div className="flex justify-start">
-                  <div className="bg-navy-dark border border-navy-card-border text-brand-slate max-w-[85%] rounded p-3">
-                    <span className="animate-pulse">BK is reviewing market structure...</span>
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Chat Inputs */}
-            <form onSubmit={handleSendMessage} className="p-4 border-t border-navy-card-border/50 bg-navy-dark/95 flex gap-2">
-              <input 
-                type="text"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Ask BK about risk sizing or market flow..."
-                className="flex-1 bg-navy-dark border border-slate-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold font-sans"
-                required
-              />
-              <button 
-                type="submit"
-                disabled={isSending}
-                className="bg-brand-gold text-brand-navy p-2.5 rounded hover:bg-yellow-500 transition shrink-0"
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+              {/* Chat Inputs */}
+              <form onSubmit={handleSendMessage} className="p-4 border-t border-navy-card-border/50 bg-navy-dark/95 flex gap-2">
+                <input 
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask BK about risk sizing or market flow..."
+                  className="flex-1 bg-navy-dark border border-slate-700 rounded px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-brand-gold font-sans"
+                  required
+                />
+                <button 
+                  type="submit"
+                  disabled={isSending}
+                  className="bg-brand-gold text-brand-navy p-2.5 rounded hover:bg-yellow-500 transition shrink-0"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* SECURE TELEGRAM OVERLAY MODAL */}
+        {discordAlertOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setDiscordAlertOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 15, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="w-full max-w-md bg-white border border-slate-200 rounded-lg p-6 shadow-2xl space-y-4 relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center space-x-2">
+                  <div className="h-8 w-8 rounded bg-sky-50 text-sky-500 flex items-center justify-center">
+                    <Send className="h-5 w-5" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 font-display">Telegram Gateway Access</h4>
+                </div>
+                <button 
+                  onClick={() => setDiscordAlertOpen(false)}
+                  className="text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="space-y-3 py-2 text-slate-600 text-sm">
+                <p>
+                  To protect our professional standard, our Telegram operational command channels are <strong className="text-slate-900">exclusively reserved</strong> for:
+                </p>
+                <ul className="list-disc pl-5 space-y-1.5 font-sans">
+                  <li>Active enrollment students of BK Academy paths</li>
+                  <li>Verified Price Action Protocol (PAP) portfolio clients</li>
+                </ul>
+                <p className="text-xs bg-sky-50/50 text-sky-800 border border-sky-100 p-3 rounded leading-relaxed">
+                  <strong>Verification Step:</strong> If you are already a client or student, click below to submit a secure inquiry. Select "Academy/Education" or "Managed Account" and BK's assistant will verify and issue your unique gateway key.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-100">
+                <button
+                  onClick={() => setDiscordAlertOpen(false)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-700 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    setDiscordAlertOpen(false);
+                    setActiveTab("contact");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="px-4 py-2 text-xs font-semibold bg-brand-gold text-white rounded-lg transition shadow-sm hover:bg-blue-700"
+                >
+                  Submit Gateway Request
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

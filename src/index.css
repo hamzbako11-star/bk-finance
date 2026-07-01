@@ -1,14 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+/* Define standard light theme as default and dark theme for class-based .dark */
+:root {
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-container: #f1f5f9;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --border-primary: #e2e8f0;
+  --border-slate-800-val: #e2e8f0;
+  
+  --text-slate-100-val: #0f172a;
+  --text-slate-200-val: #1e293b;
+  --text-slate-300-val: #334155;
+  --text-slate-400-val: #475569;
+  --text-brand-slate-val: #475569;
+  --text-slate-900-val: #0f172a;
+  --text-slate-950-val: #0f172a;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark {
+  --bg-page: #030d1e;
+  --bg-card: #0a192f;
+  --bg-container: #0c1b30;
+  --bg-glass: rgba(10, 25, 47, 0.85);
+  --border-primary: rgba(30, 41, 59, 0.5);
+  --border-slate-800-val: #1e293b;
+  
+  --text-slate-100-val: #f8fafc;
+  --text-slate-200-val: #e2e8f0;
+  --text-slate-300-val: #cbd5e1;
+  --text-slate-400-val: #94a3b8;
+  --text-brand-slate-val: #94a3b8;
+  --text-slate-900-val: #cbd5e1;
+  --text-slate-950-val: #f8fafc;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
 @theme {
   --color-brand-navy: #002b49; /* Deep executive blue ribbon background */
   --color-brand-gold: #2563eb; /* Royal blue brand accent */
-  --color-brand-slate: #475569; /* slate gray */
-  --color-navy-dark: #f8fafc; /* light background */
-  --color-navy-card: #ffffff; /* white card background */
-  --color-navy-card-light: #f1f5f9; /* light gray container */
-  --color-navy-card-border: #cbd5e1; /* visible gray border */
+  --color-brand-slate: var(--text-brand-slate-val); /* slate gray */
+  --color-navy-dark: var(--bg-container); /* light background */
+  --color-navy-card: var(--bg-card); /* white card background */
+  --color-navy-card-light: var(--bg-container); /* light gray container */
+  --color-navy-card-border: var(--border-primary); /* visible gray border */
   --font-sans: "Inter", system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -16,75 +53,153 @@
 
 /* Custom styles and enhancements */
 body {
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: var(--bg-page);
+  color: var(--text-slate-100-val);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Global utility translations for blue & white light mode */
+/* Dynamic Mapping of original inline classes to clean responsive vars */
 .bg-\[\#030d1e\] {
-  background-color: #f8fafc !important;
+  background-color: var(--bg-page) !important;
+  transition: background-color 0.3s ease;
 }
 
 .bg-\[\#0a192f\] {
-  background-color: #ffffff !important;
+  background-color: var(--bg-card) !important;
+  transition: background-color 0.3s ease;
 }
 
 .bg-navy-dark\/75 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: var(--bg-glass) !important;
+  transition: background-color 0.3s ease;
 }
 
 .border-slate-800 {
-  border-color: #e2e8f0 !important;
+  border-color: var(--border-slate-800-val) !important;
+  transition: border-color 0.3s ease;
 }
 
 .border-navy-card-border\/50 {
-  border-color: rgba(203, 213, 225, 0.5) !important;
+  border-color: var(--border-primary) !important;
+  transition: border-color 0.3s ease;
 }
 
 /* Typography and text color adaptations */
 .text-slate-100 {
-  color: #0f172a !important; /* Deep slate instead of white */
+  color: var(--text-slate-100-val) !important;
+  transition: color 0.3s ease;
 }
 
 .text-slate-200 {
-  color: #1e293b !important;
+  color: var(--text-slate-200-val) !important;
+  transition: color 0.3s ease;
 }
 
 .text-slate-300 {
-  color: #334155 !important;
+  color: var(--text-slate-300-val) !important;
+  transition: color 0.3s ease;
 }
 
 .text-slate-400 {
-  color: #475569 !important;
+  color: var(--text-slate-400-val) !important;
+  transition: color 0.3s ease;
 }
 
 .text-brand-slate {
-  color: #475569 !important;
+  color: var(--text-brand-slate-val) !important;
+  transition: color 0.3s ease;
+}
+
+.text-slate-900 {
+  color: var(--text-slate-900-val) !important;
+  transition: color 0.3s ease;
+}
+
+.text-slate-950 {
+  color: var(--text-slate-950-val) !important;
+  transition: color 0.3s ease;
 }
 
 /* Card titles and text inside cards to ensure contrast */
 .bg-white h1, .bg-white h2, .bg-white h3, .bg-white h4,
 .bg-\[\#0a192f\] h1, .bg-\[\#0a192f\] h2, .bg-\[\#0a192f\] h3, .bg-\[\#0a192f\] h4,
 .bg-navy-card h1, .bg-navy-card h2, .bg-navy-card h3, .bg-navy-card h4 {
-  color: #0f172a !important;
+  color: var(--text-slate-100-val) !important;
 }
 
 .bg-white p, .bg-[#0a192f] p, .bg-navy-card p {
-  color: #334155 !important;
+  color: var(--text-slate-200-val) !important;
+}
+
+/* Automatic override of .text-white on light backgrounds so that texts aren't white-on-white */
+.bg-white .text-white,
+.bg-\[\#030d1e\] .text-white,
+.bg-\[\#0a192f\] .text-white,
+.bg-navy-dark .text-white {
+  color: var(--text-slate-100-val) !important;
+  transition: color 0.3s ease;
+}
+
+/* Exempt actual solid primary badges and solid primary buttons from the .text-white fallback */
+.bg-brand-gold .text-white,
+button.bg-brand-gold .text-white,
+.bg-blue-600 .text-white,
+button.bg-blue-600 .text-white,
+.bg-emerald-500 .text-white,
+.bg-emerald-600 .text-white,
+.bg-rose-500 .text-white {
+  color: #ffffff !important;
+}
+
+/* Chat user bubble override */
+.bg-brand-gold\/10.text-white {
+  color: #1e3a8a !important;
+}
+.dark .bg-brand-gold\/10.text-white {
+  color: #ffffff !important;
+}
+
+/* Navigation and Container dark mode overrides */
+.dark div.bg-white,
+.dark section.bg-white,
+.dark header.bg-white,
+.dark form.bg-white {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+}
+
+.dark header.bg-white\/90 {
+  background-color: rgba(3, 13, 30, 0.9) !important;
+}
+
+.dark .lg\:hidden.bg-white {
+  background-color: var(--bg-page) !important;
+}
+
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-200:hover {
+  background-color: #0c1b30 !important;
+}
+
+.dark .hover\:text-slate-900:hover {
+  color: #ffffff !important;
 }
 
 /* Glassmorphism utility updated for light mode */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  border: 1px solid var(--border-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .gold-glow {
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.05);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease;
 }
 
 /* Active / Selected interactive state backgrounds */
@@ -131,8 +246,9 @@ button.bg-blue-600 *,
 
 /* Custom shadow card border styles */
 .rounded-lg {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  border-color: #e2e8f0;
+  box-shadow: var(--shadow-card);
+  border-color: var(--border-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Animations */
@@ -153,5 +269,3 @@ button.bg-brand-gold:hover,
   transform: translateY(-1px);
   transition: all 0.2s ease-in-out;
 }
-
-

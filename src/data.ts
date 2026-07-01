@@ -18,7 +18,7 @@ export const COURSES: Course[] = [
       "Order Types: Market, Limit, Stop, and Take-Profit/Stop-Loss Mechanics",
       "The Golden Rules of Capital Preservation: Defining Your Core Risk Per Trade"
     ],
-    price: 199,
+    price: 145,
     completionRate: 88,
     skillsAcquired: ["Core Price Action Terminology", "Order Entry Operations", "Basic Risk Sizing", "Leverage Calculations"]
   },
@@ -39,7 +39,7 @@ export const COURSES: Course[] = [
       "Key Candlestick Formations, Chart Patterns, and Dynamic Moving Averages",
       "Trading Psychology: Controlling FOMO, Defeating Revenge Trading, and Trading Logs"
     ],
-    price: 499,
+    price: 299,
     completionRate: 74,
     skillsAcquired: ["Price Action Analysis", "Supply & Demand Execution", "Psychological Discipline", "Trade Logging"]
   },
@@ -50,7 +50,7 @@ export const COURSES: Course[] = [
     description: "Align with professional market flow structures. Learn advanced price action levels, fair value gaps, market structure shifts, and trading portfolio scaling models.",
     duration: "8 Weeks (30 Hours)",
     format: "Live Webinars",
-    instructor: "Elena Rostova",
+    instructor: "Bashir Sani Nadada",
     instructorTitle: "Former Quantitative Bank Trader",
     rating: 5.0,
     studentsCount: 1120,
@@ -60,7 +60,7 @@ export const COURSES: Course[] = [
       "Correlations, Intermarket Analysis (DXY vs Majors), and Macro Drivers",
       "Professional Portfolio Management, Drawdown Recovery, and Prop Firm Rules"
     ],
-    price: 899,
+    price: 499,
     completionRate: 65,
     skillsAcquired: ["Price Action Concepts", "Market Flow Profiling", "Portfolio Risk Optimization", "Macroeconomic Analysis"]
   },
@@ -81,7 +81,7 @@ export const COURSES: Course[] = [
       "Weekly Video Audits of Your Personal Trade Logs and Error Correction",
       "Prop Firm Funded Account Assessment & Direct Allocation Path"
     ],
-    price: 1999,
+    price: 1000,
     completionRate: 94,
     skillsAcquired: ["Live Strategic Execution", "Fund Allocation Success", "Rigorous Trade Plan Formulation", "Professional Grade Auditing"]
   }
