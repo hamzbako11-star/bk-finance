@@ -55,7 +55,7 @@ export default function App() {
     {
       id: "welcome",
       sender: "advisor",
-      text: "Welcome to BK Finance. I am BK, founder and chief strategist. I can help audit your trading setups, review institutional order blocks, calculate risk models, or guide your PAMM investment strategy. What is your primary focus today?",
+      text: "Welcome to BK Finance. I am BK, founder and chief strategist. I can help audit your trading setups, review key price action levels, calculate risk models, or guide your PAP investment strategy. What is your primary focus today?",
       timestamp: new Date()
     }
   ]);
@@ -312,7 +312,7 @@ export default function App() {
                 </h1>
                 
                 <p className="text-base sm:text-lg text-brand-slate max-w-xl leading-relaxed">
-                  From complete novice to high-frequency institutional trader. Experience elite structured forex education paired directly with audited multi-million dollar PAMM investment opportunities.
+                  Master pure Price Action Strategy. Learn to read clean candlestick charts, identify key support and resistance zones, and trade raw market flow with absolute precision.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -333,43 +333,43 @@ export default function App() {
               </div>
 
               {/* Split Metrics Card */}
-              <div className="lg:col-span-5 bg-navy-dark/75 border border-slate-800 rounded-lg p-6 relative overflow-hidden gold-glow">
-                <div className="border-b border-navy-card-border/50 pb-4 mb-4 flex items-center justify-between">
-                  <span className="text-xs uppercase font-mono text-brand-gold tracking-widest">Global Live Metrics</span>
-                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded uppercase font-bold">Audited</span>
+              <div className="lg:col-span-5 bg-white border border-slate-200 rounded-lg p-6 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="border-b border-slate-100 pb-4 mb-4 flex items-center justify-between">
+                  <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">Global Live Metrics</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded uppercase font-bold">Audited</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-1">
-                    <span className="text-xs text-brand-slate block uppercase tracking-wider">Total AUM</span>
-                    <span className="text-3xl font-extrabold text-white font-display">$45.8M+</span>
-                    <span className="text-[10px] text-emerald-400 font-mono block">▲ +14% Year-over-Year</span>
+                    <span className="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Total AUM</span>
+                    <span className="text-3xl font-extrabold text-slate-950 font-display">$67k</span>
+                    <span className="text-[10px] text-emerald-600 font-mono block">▲ Stable Performance</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-xs text-brand-slate block uppercase tracking-wider">Students Coached</span>
-                    <span className="text-3xl font-extrabold text-white font-display">12,400+</span>
-                    <span className="text-[10px] text-brand-slate font-mono block">Across 85+ Countries</span>
+                    <span className="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Students Coached</span>
+                    <span className="text-3xl font-extrabold text-slate-950 font-display">294</span>
+                    <span className="text-[10px] text-slate-500 font-mono block">Personalized Coaching</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-xs text-brand-slate block uppercase tracking-wider">Years Experience</span>
-                    <span className="text-3xl font-extrabold text-white font-display">12 Yrs</span>
-                    <span className="text-[10px] text-brand-gold font-mono block">BK Chief Credentials</span>
+                    <span className="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Years Experience</span>
+                    <span className="text-3xl font-extrabold text-slate-950 font-display">7 Years</span>
+                    <span className="text-[10px] text-brand-gold font-mono block font-medium">BK Chief Credentials</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-xs text-brand-slate block uppercase tracking-wider">Success Rate</span>
-                    <span className="text-3xl font-extrabold text-white font-display">82.4%</span>
-                    <span className="text-[10px] text-emerald-400 font-mono block">LMS Course Completion</span>
+                    <span className="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Success Rate</span>
+                    <span className="text-3xl font-extrabold text-slate-950 font-display">82.4%</span>
+                    <span className="text-[10px] text-emerald-600 font-mono block">LMS Course Completion</span>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-navy-card-border/50 space-y-3">
+                <div className="mt-6 pt-6 border-t border-slate-100 space-y-3">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-brand-slate">Institutional Execution Spreads</span>
-                    <span className="text-white font-mono">0.0 Pips Raw</span>
+                    <span className="text-slate-500">Pure PAP Execution Spreads</span>
+                    <span className="text-slate-900 font-mono font-semibold">0.0 Pips Raw</span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-brand-slate">Risk Mitigation Threshold</span>
-                    <span className="text-emerald-400 font-mono">1.5% Peak Stop-Loss</span>
+                    <span className="text-slate-500">Risk Mitigation Threshold</span>
+                    <span className="text-emerald-700 font-mono font-semibold">1.5% Peak Stop-Loss</span>
                   </div>
                 </div>
               </div>
@@ -381,9 +381,9 @@ export default function App() {
                 <div className="h-12 w-12 bg-brand-gold/10 border border-brand-gold/30 rounded-lg flex items-center justify-center text-brand-gold">
                   <BookOpen className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white font-display">I want to Learn Professional Trading</h3>
+                <h3 className="text-xl font-bold text-white font-display">I want to Learn Pure Price Action</h3>
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  Join the BK Academy to dismantle retail misconceptions. Learn Smart Money Concepts, market maker liquidity footprints, and risk preservation protocols directly from institutional coaches.
+                  Join the BK Academy to dismantle retail misconceptions. Learn raw candlestick patterns, market structure shifts, and key price levels directly from veteran price action coaches.
                 </p>
                 <button 
                   onClick={() => setActiveTab("academy")}
@@ -400,13 +400,13 @@ export default function App() {
                 </div>
                 <h3 className="text-xl font-bold text-white font-display">I want BK to Manage My Capital</h3>
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  Delegate execution to our audited PAMM master systems. Access conservative, balanced, or aggressive macro profiles backed by real-time transparent account ledger updates.
+                  Delegate execution to our audited Price Action master systems. Access conservative, balanced, or aggressive market-flow profiles backed by real-time transparent account ledger updates.
                 </p>
                 <button 
                   onClick={() => setActiveTab("invest")}
                   className="inline-flex items-center space-x-1.5 text-xs text-emerald-400 font-bold hover:text-white group"
                 >
-                  <span>Analyze PAMM Managed Allocations</span>
+                  <span>Analyze Price Action Managed Allocations</span>
                   <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -564,7 +564,7 @@ export default function App() {
                 {newsletterError && <p className="text-xs text-rose-400 font-mono">{newsletterError}</p>}
 
                 <p className="text-[10px] text-brand-slate">
-                  *We guard your privacy with institutional security. No spam. One click unsubscribe.
+                  *We guard your privacy with bank-grade security. No spam. One click unsubscribe.
                 </p>
               </div>
             </div>
@@ -602,11 +602,11 @@ export default function App() {
                 <h2 className="text-3xl font-extrabold text-white font-display">A Mission of Radical Transparency in Finance</h2>
                 
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  "I spent my first three years in the forex market losing money to commercial trading systems, indicators, and online chatrooms selling get-rich-quick courses. It wasn't until I studied inside a major institutional desk in London that I learned how the markets actually transact."
+                  "I spent my first three years in the market losing money to commercial trading systems, indicators, and online chatrooms selling get-rich-quick courses. It wasn't until I decoded raw price action mechanics and market flow that I learned how price actually transacts without lagging indicators."
                 </p>
                 
                 <p className="text-sm text-brand-slate leading-relaxed">
-                  Under BK’s guidance, BK Finance was launched in 2016 with a strict mandate: **eliminate retail metrics and publish fully transparent audited returns.** We combine high-density pedagogical courses with physical managed account operations (PAMM/MAM), creating a continuous pipeline where graduates can learn to trade and gain fund allocations.
+                  Under BK’s guidance, BK Finance was launched in 2016 with a strict mandate: **eliminate lagging indicators and publish fully transparent audited returns.** We combine high-density pedagogical courses with physical price action managed account operations (PAP), creating a continuous pipeline where graduates can master price action and gain fund allocations.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
@@ -619,7 +619,7 @@ export default function App() {
                   <div className="bg-[#0a192f] border border-slate-800 p-4 rounded-lg">
                     <h4 className="font-bold text-white text-sm mb-2 font-display">The BK Ecosystem</h4>
                     <p className="text-xs text-brand-slate leading-relaxed">
-                      We do not just sell modules. We provide ongoing live community webinars, customized strategy logs, and deep liquidity pool partnerships.
+                      We do not just sell modules. We provide ongoing live community webinars, customized strategy logs, and vetted price action strategies.
                     </p>
                   </div>
                 </div>
@@ -631,7 +631,7 @@ export default function App() {
               <div className="space-y-3">
                 <h3 className="font-bold text-white text-lg font-display">Our Mission</h3>
                 <p className="text-xs text-brand-slate leading-relaxed">
-                  To democratize institutional finance, equipping retail capital with the math, psychology, and risk structures needed to extract long-term consistency from the currency market.
+                  To democratize professional price action trading, equipping retail capital with the math, psychology, and risk structures needed to extract long-term consistency from the financial markets.
                 </p>
               </div>
               <div className="space-y-3">
@@ -674,7 +674,7 @@ export default function App() {
                   />
                   <h4 className="font-bold text-white font-display">Bako Hamz (BK)</h4>
                   <span className="text-[10px] text-brand-gold uppercase font-mono block mb-2">Chief Market Strategist</span>
-                  <p className="text-xs text-brand-slate leading-relaxed">Founder, lead live execution mentor, and managing director of our private PAMM portfolio reserves.</p>
+                  <p className="text-xs text-brand-slate leading-relaxed">Founder, lead live execution mentor, and managing director of our private PAP portfolio reserves.</p>
                 </div>
               </div>
             </div>
@@ -690,7 +690,7 @@ export default function App() {
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">BK EDUCATION HUB</span>
               <h2 className="text-3xl font-extrabold text-white font-display">No Retail Indicators. Pure Candle Mechanics.</h2>
               <p className="text-sm text-brand-slate">
-                Our curriculum progresses from the core foundation up to institutional algorithms. Select a specific tier below to review details.
+                Our curriculum progresses from the core foundation up to advanced price action models. Select a specific tier below to review details.
               </p>
             </div>
 
@@ -720,7 +720,7 @@ export default function App() {
                 <div className="bg-[#030d1e] border border-dashed border-brand-gold/30 p-4 rounded-lg mt-6">
                   <h4 className="text-xs font-bold text-brand-gold uppercase font-mono mb-2">Test Your Trading Edge</h4>
                   <p className="text-[11px] text-brand-slate leading-relaxed mb-3">
-                    Think you have the discipline and knowledge to trade institutional capital? Take our rapid 4-question risk assessment quiz.
+                    Think you have the discipline and knowledge to trade pure market flow? Take our rapid 4-question risk assessment quiz.
                   </p>
                   <button 
                     onClick={() => {
@@ -827,9 +827,9 @@ export default function App() {
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold border border-brand-gold/30 mb-2">
                       <PrizeIcon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white font-display">Forex Sizing and Market Structure Assessment</h3>
+                    <h3 className="text-2xl font-bold text-white font-display">Price Action Sizing and Market Structure Assessment</h3>
                     <p className="text-sm text-brand-slate max-w-xl mx-auto">
-                      Durable wealth creation relies on mathematics, not luck. Test your current technical understanding of risk metrics and institutional cycles. Take this rapid, 4-question assessment.
+                      Durable wealth creation relies on mathematics, not luck. Test your current technical understanding of risk metrics and market flow cycles. Take this rapid, 4-question assessment.
                     </p>
                     <button 
                       onClick={resetQuiz}
@@ -939,7 +939,7 @@ export default function App() {
             {/* Header */}
             <div className="text-center max-w-2xl mx-auto space-y-4">
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold">MANAGED SERVICES</span>
-              <h2 className="text-3xl font-extrabold text-white font-display">PAMM & Managed Accounts</h2>
+              <h2 className="text-3xl font-extrabold text-white font-display">Price Action Protocol (PAP) Managed Accounts</h2>
               <p className="text-sm text-brand-slate">
                 Delegate technical execution to certified professionals. We trade pooled assets on a direct commission structure with no retail markup.
               </p>
@@ -1081,7 +1081,7 @@ export default function App() {
               <div className="lg:col-span-7 bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8 space-y-6">
                 <div className="pb-4 border-b border-navy-card-border/50">
                   <span className="text-xs font-mono text-brand-gold uppercase tracking-widest font-bold">Trading Calculator</span>
-                  <h3 className="text-xl font-bold text-white font-display mt-1">Institutional Position Size Sizer</h3>
+                  <h3 className="text-xl font-bold text-white font-display mt-1">Price Action Position Size Sizer</h3>
                   <p className="text-xs text-brand-slate mt-1">Calculate exact lot allocations to preserve capital relative to stop-loss levels.</p>
                 </div>
 
@@ -1197,7 +1197,7 @@ export default function App() {
             <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 sm:p-8">
               <div className="flex items-center space-x-2 pb-4 border-b border-navy-card-border/50 mb-6">
                 <BookMarked className="h-5 w-5 text-brand-gold" />
-                <h3 className="text-lg font-bold text-white font-display">Lexicon of Institutional Terms</h3>
+                <h3 className="text-lg font-bold text-white font-display">Lexicon of Price Action Terms</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1221,7 +1221,7 @@ export default function App() {
               <span className="text-xs uppercase font-mono text-brand-gold tracking-widest font-bold font-mono">ALUMNI CORE</span>
               <h2 className="text-3xl font-extrabold text-white font-display">BK Discord & Private Guild</h2>
               <p className="text-sm text-brand-slate">
-                Trading is a lonely pursuit. Join our student forums, share daily chart layouts, and trace institutional entries with vetted partners.
+                Trading is a lonely pursuit. Join our student forums, share daily chart layouts, and trace market flow entries with vetted partners.
               </p>
             </div>
 
@@ -1245,7 +1245,7 @@ export default function App() {
                   </div>
                 </div>
                 <button 
-                  onClick={() => alert("Discord entry credentials are exclusive to verified course or PAMM students.")}
+                  onClick={() => alert("Discord entry credentials are exclusive to verified course or PAP students.")}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded text-xs transition duration-150"
                 >
                   Request Discord Gateway
@@ -1344,7 +1344,7 @@ export default function App() {
                       <td className="p-4">❌ No</td>
                       <td className="p-4">❌ No</td>
                       <td className="p-4">✔ Prop Firm Prep</td>
-                      <td className="p-4 text-brand-gold font-bold">✔ Direct PAMM Pipeline</td>
+                      <td className="p-4 text-brand-gold font-bold">✔ Direct PAP Pipeline</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1362,7 +1362,7 @@ export default function App() {
               <div className="space-y-2">
                 <h4 className="font-bold text-white text-sm font-display">High-Water Mark Principle for Investments</h4>
                 <p className="text-xs text-brand-slate leading-relaxed">
-                  We only profit when you profit. Our PAMM performance fees (15% - 35% depending on package risk profile) operate strictly under the high-water mark. If your account equity declines, no fee is charged until all prior losses are fully recouped.
+                  We only profit when you profit. Our PAP performance fees (15% - 35% depending on package risk profile) operate strictly under the high-water mark. If your account equity declines, no fee is charged until all prior losses are fully recouped.
                 </p>
               </div>
             </div>
@@ -1430,7 +1430,7 @@ export default function App() {
                         className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold"
                       >
                         <option value="education">Academy / Education Paths</option>
-                        <option value="investment">PAMM Managed Account Services</option>
+                        <option value="investment">PAP Managed Account Services</option>
                         <option value="both">Both (The Learn-and-Earn Pipeline)</option>
                       </select>
                     </div>
@@ -1455,7 +1455,7 @@ export default function App() {
                       rows={3}
                       value={bookingForm.notes}
                       onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
-                      placeholder="e.g., Current risk profile, years traded, or targeted PAMM allocation..."
+                      placeholder="e.g., Current risk profile, years traded, or targeted PAP allocation..."
                       className="w-full bg-navy-dark border border-slate-700 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold resize-none"
                     />
                   </div>
@@ -1525,7 +1525,7 @@ export default function App() {
 
                 {/* FAQs */}
                 <div className="bg-[#0a192f] border border-slate-800 rounded-lg p-6 space-y-4">
-                  <h3 className="font-bold text-white text-base font-display">Educational & PAMM FAQ</h3>
+                  <h3 className="font-bold text-white text-base font-display">Educational & PAP FAQ</h3>
                   <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
                     {FAQS.map((faq, i) => (
                       <div key={i} className="space-y-1 pb-3 border-b border-navy-card-border/20 last:border-none">
@@ -1549,7 +1549,7 @@ export default function App() {
             <div className="max-w-3xl space-y-2">
               <span className="font-bold text-rose-400 uppercase font-mono tracking-widest block">⚠ SECURE RISK WARNING DISCLOSURE</span>
               <p>
-                Trading Foreign Exchange (Forex) and Leveraged Financial Instruments involves major risk of loss. It is not suitable for all retail or institutional investors. Leverage can magnify losses as well as gains, and you may lose more than your initial deposit.
+                Trading Foreign Exchange (Forex) and Leveraged Financial Instruments involves major risk of loss. It is not suitable for all retail or professional investors. Leverage can magnify losses as well as gains, and you may lose more than your initial deposit.
               </p>
               <p>
                 BK Finance publishes historical results derived from transparent third-party audited accounts. Historical performance metrics do not constitute a guarantee of future success. You should only risk capital that you can afford to lose.
@@ -1563,7 +1563,7 @@ export default function App() {
             </div>
           </div>
           <div className="text-center text-[10px] text-brand-slate/50 border-t border-navy-card-border/30 pt-4">
-            © 2026 BK Finance. All Rights Reserved. Fully Certified Technical Forex Academy & Managed PAMM.
+            © 2026 BK Finance. All Rights Reserved. Fully Certified Technical Price Action Academy & Managed PAP.
           </div>
         </div>
       </footer>
@@ -1584,7 +1584,7 @@ export default function App() {
                   <h4 className="font-bold text-sm text-white font-display flex items-center">
                     BK AI Advisor <Sparkles className="h-3 w-3 text-brand-gold ml-1 animate-pulse" />
                   </h4>
-                  <span className="text-[9px] text-brand-slate uppercase tracking-wider font-mono">12-Yr Forex Master</span>
+                  <span className="text-[9px] text-brand-slate uppercase tracking-wider font-mono">12-Yr Price Action Master</span>
                 </div>
               </div>
               <button 
@@ -1629,7 +1629,7 @@ export default function App() {
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Ask BK about risk sizing or order blocks..."
+                placeholder="Ask BK about risk sizing or market flow..."
                 className="flex-1 bg-navy-dark border border-slate-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold font-sans"
                 required
               />

@@ -45,7 +45,7 @@ export default function Navigation({ activeTab, setActiveTab, onOpenAdvisor }: N
             </span>
             <div className="flex items-center space-x-1 text-[9px] text-slate-500 tracking-widest uppercase font-mono">
               <ShieldCheck className="h-3 w-3 text-brand-gold inline" />
-              <span>Institutional Standard</span>
+              <span>Professional Standard</span>
             </div>
           </div>
         </div>

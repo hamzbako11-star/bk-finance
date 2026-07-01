@@ -3,13 +3,13 @@ import { Course, InvestmentPackage, CalendarEvent, Testimonial, QuizQuestion } f
 export const COURSES: Course[] = [
   {
     id: "fnd-101",
-    title: "Forex Trading Foundations",
+    title: "Price Action Foundations",
     tier: "Foundation",
-    description: "Master the base concepts of forex trading. Learn pip values, contract sizing, margin mechanics, and core exchange pairs with strict risk constraints.",
+    description: "Master the base concepts of price action trading. Learn pip values, contract sizing, margin mechanics, and core exchange pairs with strict risk constraints.",
     duration: "4 Weeks (12 Hours)",
     format: "Video Course",
     instructor: "David Miller",
-    instructorTitle: "Senior Forex Analyst & Educator",
+    instructorTitle: "Senior Price Action Analyst & Educator",
     rating: 4.8,
     studentsCount: 3420,
     modules: [
@@ -20,13 +20,13 @@ export const COURSES: Course[] = [
     ],
     price: 199,
     completionRate: 88,
-    skillsAcquired: ["Core Forex Terminology", "Order Entry Operations", "Basic Risk Sizing", "Leverage Calculations"]
+    skillsAcquired: ["Core Price Action Terminology", "Order Entry Operations", "Basic Risk Sizing", "Leverage Calculations"]
   },
   {
     id: "int-201",
     title: "Technical Analysis & Price Action Mastery",
     tier: "Intermediate",
-    description: "Transition from retail metrics to pure candlestick chart mechanics. Understand market structure, liquidity transitions, and trade entries using dynamic indicators.",
+    description: "Transition from retail metrics to pure candlestick chart mechanics. Understand market structure shifts, price flow transitions, and trade entries using price action mechanics.",
     duration: "6 Weeks (20 Hours)",
     format: "Hybrid",
     instructor: "BK (Bako Hamz)",
@@ -45,9 +45,9 @@ export const COURSES: Course[] = [
   },
   {
     id: "adv-301",
-    title: "Institutional Order Flow & Portfolio Management",
+    title: "Price Action Order Flow & Portfolio Management",
     tier: "Advanced",
-    description: "Align with Central Bank liquidity pools. Learn institutional order blocks, fair value gaps, algorithmic cycles, and industrial portfolio scaling models.",
+    description: "Align with professional market flow structures. Learn advanced price action levels, fair value gaps, market structure shifts, and trading portfolio scaling models.",
     duration: "8 Weeks (30 Hours)",
     format: "Live Webinars",
     instructor: "Elena Rostova",
@@ -55,14 +55,14 @@ export const COURSES: Course[] = [
     rating: 5.0,
     studentsCount: 1120,
     modules: [
-      "Smart Money Concepts (SMC): Identifying Market Maker Footprints",
-      "Fair Value Gaps (FVG), Liquidity Sweeps, and Inducement Traps",
+      "Price Action Protocol (PAP): Identifying Market Flow Footprints",
+      "Fair Value Gaps (FVG), Support/Resistance Shifts, and Inducement Traps",
       "Correlations, Intermarket Analysis (DXY vs Majors), and Macro Drivers",
       "Professional Portfolio Management, Drawdown Recovery, and Prop Firm Rules"
     ],
     price: 899,
     completionRate: 65,
-    skillsAcquired: ["Smart Money Concepts", "Liquidity Profiling", "Portfolio Risk Optimization", "Macroeconomic Analysis"]
+    skillsAcquired: ["Price Action Concepts", "Market Flow Profiling", "Portfolio Risk Optimization", "Macroeconomic Analysis"]
   },
   {
     id: "men-401",
@@ -90,13 +90,13 @@ export const COURSES: Course[] = [
 export const INVESTMENT_PACKAGES: InvestmentPackage[] = [
   {
     id: "pkg-conservative",
-    name: "BK Conservative Wealth PAMM",
+    name: "BK Conservative Wealth PAP",
     riskProfile: "Conservative",
     minInvestment: 5000,
     targetMonthlyReturn: "2.5% - 4.0%",
     managementFee: "1.0% Annualized",
     performanceFee: "15% of Net Profits",
-    description: "Preserve principal capital at all costs while steadily outpacing inflation. Trades focus purely on high-liquidity currency majors (EUR/USD, GBP/USD) during prime sessions with tight stop-losses and a maximum historical drawdown of 4.5%.",
+    description: "Preserve principal capital at all costs while steadily outpacing inflation. Trades focus purely on high-volume currency majors (EUR/USD, GBP/USD) during prime sessions with tight stop-losses and a maximum historical drawdown of 4.5%.",
     suitableFor: "Retirement assets, corporate cash balances, and low-risk appetite capital looking for stable, low-volatility compound returns.",
     historicalPerformance: [
       { year: 2021, return: 28.4 },
@@ -114,7 +114,7 @@ export const INVESTMENT_PACKAGES: InvestmentPackage[] = [
   },
   {
     id: "pkg-balanced",
-    name: "BK Balanced Alpha Managed Account",
+    name: "BK Balanced Alpha PAP Account",
     riskProfile: "Balanced",
     minInvestment: 10000,
     targetMonthlyReturn: "4.5% - 6.5%",
@@ -144,7 +144,7 @@ export const INVESTMENT_PACKAGES: InvestmentPackage[] = [
     targetMonthlyReturn: "8.0% - 12.0%",
     managementFee: "2.0% Annualized",
     performanceFee: "35% of Net Profits",
-    description: "Uncapped volatility model designed to exploit macro imbalances, central bank interest differentials (carry trades), and high-momentum commodity breaks (Gold & Oil). Structured under institutional execution. Max historical drawdown: 15.4%.",
+    description: "Uncapped volatility model designed to exploit macro imbalances, central bank interest differentials (carry trades), and high-momentum commodity breaks (Gold & Oil). Structured under advanced PAP execution. Max historical drawdown: 15.4%.",
     suitableFor: "High net worth individuals with sophisticated risk profiles, looking to dedicate a satellite portion of their overall net worth to maximum yield.",
     historicalPerformance: [
       { year: 2021, return: 112.5 },
@@ -175,9 +175,9 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "test-2",
     name: "Sophia Vance",
-    role: "PAMM Managed Portfolio Client",
+    role: "PAP Managed Portfolio Client",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150&q=80",
-    text: "As an emergency physician, I have zero time to monitor live charts. Investing in BK's Balanced PAMM account gave me access to high-fidelity forex yields with professional risk management. The quarterly audits are completely transparent.",
+    text: "As an emergency physician, I have zero time to monitor live charts. Investing in BK's Balanced PAP account gave me access to high-fidelity returns with professional risk management. The quarterly audits are completely transparent.",
     rating: 5,
     gainPercent: "+6.2% Average Monthly Return"
   },
@@ -244,11 +244,11 @@ export const ECONOMIC_EVENTS: CalendarEvent[] = [
 ];
 
 export const GLOSSARY: { term: string; definition: string }[] = [
-  { term: "PAMM / MAM", definition: "Percent Allocation Management Module. A software setup that allows investors to combine capital into a single account managed by an expert trader, distributing profits and losses proportionally." },
+  { term: "PAP / MAM", definition: "Price Action Protocol Account. A software setup that allows investors to combine capital into a single account managed by an expert price action trader, distributing profits and losses proportionally." },
   { term: "Spread", definition: "The difference between the BID price (selling price) and the ASK price (buying price) of a currency pair. This represents the primary cost of entering a transaction." },
-  { term: "Smart Money Concepts (SMC)", definition: "An institutional trading methodology focusing on identifying market structures, order blocks, fair value gaps, and liquidity cycles to trade alongside banks." },
+  { term: "Price Action Protocol (PAP)", definition: "An advanced price action methodology focusing on identifying market structures, key price levels, fair value gaps, and market flow cycles to trade alongside professional desks." },
   { term: "Pip (Percentage in Point)", definition: "The smallest unit of price movement in a currency pair, usually equal to 0.0001 (or 0.01 for Japanese Yen pairs)." },
-  { term: "Fair Value Gap (FVG)", definition: "A structural price imbalance on a chart occurring when buying or selling pressure is so intense that price moves rapidly, leaving a gap that market makers eventually return to fill." },
+  { term: "Fair Value Gap (FVG)", definition: "A structural price imbalance on a chart occurring when buying or selling pressure is so intense that price moves rapidly, leaving a gap that market flow eventually returns to fill." },
   { term: "Drawdown", definition: "The peak-to-trough decline in an investment portfolio or trading account, expressed as a percentage. It measures the risk and equity fluctuations of a system." }
 ];
 
@@ -262,19 +262,19 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 2,
-    question: "Which of the following describes a 'Fair Value Gap' (FVG) in institutional market structure?",
+    question: "Which of the following describes a 'Fair Value Gap' (FVG) in advanced market structure?",
     options: [
-      "The spread charged by liquidity providers on weekends.",
-      "A three-candle pattern showing a rapid displacement of price where the first candle's high and third candle's low do not overlap, leaving a liquidity imbalance.",
+      "The spread charged by execution providers on weekends.",
+      "A three-candle pattern showing a rapid displacement of price where the first candle's high and third candle's low do not overlap, leaving a price structural imbalance.",
       "An increase in interest rates by the Federal Reserve.",
       "A wedge pattern indicating trend exhaustion."
     ],
     correctIndex: 1,
-    explanation: "Spot on! An FVG is an imbalance on a 3-candle sequence, demonstrating massive bank displacement. Markets frequently retrace to rebalance these gaps."
+    explanation: "Spot on! An FVG is an imbalance on a 3-candle sequence, demonstrating massive price displacement. Markets frequently retrace to rebalance these gaps."
   },
   {
     id: 3,
-    question: "What does a 1:3 Risk-to-Reward ratio mean when executing a forex position?",
+    question: "What does a 1:3 Risk-to-Reward ratio mean when executing a position?",
     options: [
       "You risk $300 to make $100.",
       "You are trading 3 standard lots simultaneously.",
@@ -286,33 +286,33 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 4,
-    question: "What is a PAMM Account structure in Forex investment?",
+    question: "What is a PAP Account structure in Price Action investment?",
     options: [
       "An automated bot trading without human supervision.",
       "A government-backed savings bond denominated in USD.",
-      "Percent Allocation Management Module, letting investors pool funds into a master portfolio managed by an expert, sharing returns proportionally.",
+      "Price Action Protocol Account, letting investors pool funds into a master portfolio managed by an expert, sharing returns proportionally.",
       "A high-frequency arbitrage pipeline."
     ],
     correctIndex: 2,
-    explanation: "Correct! PAMM allows professional managers (like BK Finance) to trade pooled investor assets on a single interface with complete compliance and proportional distribution."
+    explanation: "Correct! PAP allows professional managers (like BK Finance) to trade pooled investor assets on a single interface with complete compliance and proportional distribution."
   }
 ];
 
 export const FAQS = [
   {
-    question: "Is Forex trading safe? What are the core risks involved?",
-    answer: "No financial trading is completely 'safe.' Forex involves high leverage, which can amplify both profits and losses. BK Finance preaches institutional risk management (1-2% absolute risk per trade) to ensure you are never exposed to catastrophic capital damage."
+    question: "Is Price Action trading safe? What are the core risks involved?",
+    answer: "No financial trading is completely 'safe.' Trading involves high leverage, which can amplify both profits and losses. BK Finance preaches strict risk management (1-2% absolute risk per trade) to ensure you are never exposed to catastrophic capital damage."
   },
   {
-    question: "What is the minimum capital required for BK Investment Services?",
-    answer: "Our Managed PAMM packages start with a minimum threshold of $5,000 for the Conservative program, $10,000 for the Balanced portfolio, and $25,000 for the Aggressive Macro Venture."
+    question: "What is the minimum capital required for BK PAP Services?",
+    answer: "Our Managed PAP packages start with a minimum threshold of $5,000 for the Conservative program, $10,000 for the Balanced portfolio, and $25,000 for the Aggressive Macro Venture."
   },
   {
     question: "Can I join the Mentorship Program as an absolute beginner?",
-    answer: "Yes. Our Mentorship program is custom-tailored. It includes the Foundation curriculum to build your vocabulary, but scales quickly through 1-on-1 coaching into advanced institutional order flow, leading directly to a funded prop firm path."
+    answer: "Yes. Our Mentorship program is custom-tailored. It includes the Foundation curriculum to build your vocabulary, but scales quickly through 1-on-1 coaching into advanced price action models, leading directly to a funded prop firm path."
   },
   {
     question: "Are the historical returns for managed accounts guaranteed?",
-    answer: "Absolutely not. Legally and ethically, BK Finance does not guarantee returns. Historical performance is derived from fully transparent, third-party audited statements. Forex involves substantial risk, and you should only trade with risk capital you can afford to lose."
+    answer: "Absolutely not. Legally and ethically, BK Finance does not guarantee returns. Historical performance is derived from fully transparent, third-party audited statements. Price action trading involves substantial risk, and you should only trade with risk capital you can afford to lose."
   }
 ];
